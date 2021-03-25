@@ -43,7 +43,7 @@ class Taquin(object):
 			if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:
 				return True
 			return False
-		return all(self.map(isSolvedMap))
+		return all(self.map(isSolved_map))
 
 	
 
