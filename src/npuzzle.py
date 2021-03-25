@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 from parserTools import getBoard
 from game import TaquinGame

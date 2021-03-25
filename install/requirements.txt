@@ -1,7 +1,0 @@
-time
-random
-argparse
-sys
-re
-os
-pygame

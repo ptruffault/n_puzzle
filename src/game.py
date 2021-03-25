@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, time
@@ -12,7 +13,6 @@ class TaquinGame(object):
 			'x': [taquin.index(line) for line in taquin if 0 in line][0],
 			'y': [line.index(0) for line in taquin if 0 in line][0]
 		}
-
 		self.setupPygame()
 		self.gameLoop()
 
