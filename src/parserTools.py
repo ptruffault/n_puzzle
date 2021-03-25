@@ -1,7 +1,6 @@
 import re
 from utils import *
 
-#check if board is or not valid
 def checkBoard(board):
 	size = len(board)
 	met = []
@@ -18,7 +17,6 @@ def checkBoard(board):
 			met.append(board[i][j])
 	return True
 
-#return board from args
 def getBoard(filepath):
 	board = []
 	size = 0;

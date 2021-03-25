@@ -4,7 +4,6 @@ import pygame, time
 
 class TaquinGame(object):
 	def __init__(self, taquin, moves):
-		#setup
 		self.launched = False
 		self.taquin = taquin
 		self.size = len(taquin)
@@ -15,7 +14,6 @@ class TaquinGame(object):
 		}
 
 		self.setupPygame()
-		#launch game
 		self.gameLoop()
 
 	def setupPygame(self):
@@ -26,7 +24,6 @@ class TaquinGame(object):
 		self.screen = pygame.display.set_mode((self.windowsSize, self.windowsSize))
 		self.font = pygame.font.SysFont('Comic Sans MS', 30)
 		
-	#return current possibles moves according to the empty case position
 	def getLegalMoves(self):
 		ret = []
 		if self.emptyCaseCoor['x'] != 0:
@@ -79,7 +76,6 @@ class TaquinGame(object):
 		self.emptyCaseCoor['y'] += 1
 		self.taquin[self.emptyCaseCoor['x']][self.emptyCaseCoor['y']] = 0
 
-	#Take a direction as argument (up, down, left, right) and handle this move
 	def applyMove(self, move):
 		if move in self.getLegalMoves():
 			if move == 'up': 
@@ -92,7 +88,6 @@ class TaquinGame(object):
 				self.moveRight()
 			self.showTaquin()
 	
-	#redraw the game board and update rects
 	def showTaquin(self):
 		self.tuiles = []
 		for i in range(self.size):
@@ -105,7 +100,6 @@ class TaquinGame(object):
 			self.tuiles.append(rectsLine)
 		pygame.display.update()
 			
-
 	def gameLoop(self):
 		self.currentMoveIndex = 0
 		self.play = True
@@ -127,6 +121,7 @@ class TaquinGame(object):
 					    self.applyMove('left')
 					if event.key == pygame.K_RIGHT:
 					    self.applyMove('right')
+
 
 if __name__ == "__main__":
     TaquinGame([[2,5,3],[8,7,4],[1,6,0]], ['down','left','up'])

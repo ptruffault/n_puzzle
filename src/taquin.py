@@ -40,14 +40,19 @@ class Taquin(object):
 		return ret
 	
 
-	def isSolved__map(self, data):
+
+
+
+	# check if the taquin is currently solved or not
+	def isSolved_map(self, data):
 		if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:
 			return True
 		return False
 
 	def isSolved(self):
-		return all(self.map(isSolved_map))
+		return all(self.map(self.isSolved_map))
 
+	#check if the taquin is currently solvable or not
 
 	def isSolvable__map(self, data):
 		return 1 if self.toCmp > self.board[data['x']][data['y']] and self.board[data['x']][data['y']] != 0 else 0
@@ -59,10 +64,14 @@ class Taquin(object):
 	def isSolvable(self):
 		return True if not sum(self.map(self.isSolvable_map)) % 2 else False
 
+
+
 	def resolv(self):
 		if self.isSolvable():
-			print('solvable')
-			self.solution = ['right', 'right','up','up','left','down']
-			return self.solution
+			if self.isSolved():
+				print('Already solved')
+				return []
+			else:
+				return ['right', 'right','up','up','left','down']
 		else:
 			error('unsolvable')
