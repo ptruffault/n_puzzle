@@ -5,7 +5,7 @@ def checkBoard(board):
 	size = len(board)
 	met = []
 	if size < 3:
-		error("minimal board size is 3")
+		error("invalid board size")
 	for i in range(0, len(board)):
 		if len(board[i]) != size:
 			error("invalid line size")
@@ -13,7 +13,7 @@ def checkBoard(board):
 			if board[i][j] < 0 or board[i][j] > size*size:
 				error("invalid value : "+ board[i][j])
 			if board[i][j] in met:
-				error("Value must be unique ")
+				error("invalid value")
 			met.append(board[i][j])
 	return True
 
@@ -23,7 +23,7 @@ def getBoard(filepath):
 	try:
 		file = open(filepath, 'r')
 	except OSError:
-		error("Could not open/read/find " + filepath)
+		error("invalid file " + filepath)
 	with file:
 		lines = re.sub(r'#.*', '', file.read()).split('\n')
 		for i in range(0, len(lines)):
