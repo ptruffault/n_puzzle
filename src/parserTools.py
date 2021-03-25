@@ -5,12 +5,16 @@ from utils import *
 def checkBoard(board):
 	size = len(board)
 	if size < 3:
-		error('minimal board size is 3')
+		error("minimal board size is 3")
 	met = []
 	for i in range(0, len(board)):
+		if len(board[i]) != size:
+			error("invalid line size")
 		for j in range(0, len(board[i])):
-			if len(board[i]) != size or board[i][j] < 0 or board[i][j] > size*size or board[i][j] in met:
-				error('invalid board')
+			if board[i][j] < 0 or board[i][j] > size*size:
+				error("invalid value : "+ board[i][j])
+			if board[i][j] in met:
+				error("Value must be unique ")
 			met.append(board[i][j])
 	return True
 

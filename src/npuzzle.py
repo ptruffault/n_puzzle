@@ -1,14 +1,15 @@
 import argparse
 from parserTools import getBoard
 from game import TaquinGame
+from taquin import Taquin
 from utils import *
 
-def findSolution(taquin):
-	return ['right', 'right','up','up','left','down']
+def findSolution(board):
+	TAQUIN = Taquin(board)
+	solution = TAQUIN.resolv()
+	TAQUIN.showResult()
+	return solution
 
-def showSolution(solution):
-	print('Step: ', len(solution))
-	print('Solution: ', ' '.join(str(e) for e in solution))
 
 def main():
 	parser = argparse.ArgumentParser()
@@ -20,7 +21,6 @@ def main():
 	board = getBoard(args.file)
 	if board:
 		solution = findSolution(board)
-		showSolution(solution)
 		if args.view:
 			TaquinGame(board, solution)
 

@@ -1,36 +1,62 @@
-import sys
 
-class Game:
-    def __init__(self, file):
-        self.file = file;
-        self.taquin = self.__create_taquin();
+class Taquin(object):
+	def __init__(self, board):
+		self.board = board
+		self.size = len(board)
+		self.solution = []
 
-    def __create_taquin(self):
-        ZONE = "";
-        LIST = [];
-        for line in self.file.readlines():
-            line = line.replace('\n', '');
-            i = line.find('#');
-            if (i >= 0):
-                line = line[0:i];
-            if line:
-                ZONE = ZONE + line + " ";
-        LIST = ZONE.split();
-        self.size = int(LIST[0]);
-        taquin = [[0] * self.size for i in range(self.size)];
-        k = 1;
-        for i in range(0, self.size):
-            for j in range(0, self.size):
-                taquin[i][j] = LIST[k];
-                k = k + 1;    
-        return taquin
+	# Apply "function" to each tuile of the taquin in the right order
+	def map(self, function):
+		directions = [
+			{'begin': 0, 'end': self.size -1, 'step': 1},	# right
+			{'begin': 1, 'end': self.size -1, 'step': 1},	# down
+			{'begin': self.size -2, 'end': 0, 'step': -1},	# left
+			{'begin': self.size -2, 'end': 1, 'step': -1}	# up
+		]
+		data = {'x': 0, 'y': 0, 'i': 0}
+		ret = []
+		d = 0
+		while data['i'] <= self.size*self.size - 1:
+			ret.append(function(data))
+			data['i'] += 1
+			if d % 2 == 0:
+				if data['y'] == directions[d]['end']:
+					directions[d]['begin'] += directions[d]['step']
+					directions[d]['end'] -= directions[d]['step']
+					d = 0 if d >= len(directions) -1 else d + 1
+					data['x'] = directions[d]['begin']
+				else:
+					data['y'] += directions[d]['step']
+			else:
+				if data['x'] == directions[d]['end']:
+					directions[d]['begin'] += directions[d]['step']
+					directions[d]['end'] -= directions[d]['step']
+					d = 0 if d >= len(directions) -1 else d + 1
+					data['y'] = directions[d]['begin']
+				else:
+					data['x'] += directions[d]['step']
+		return ret
+	
 
-if (len(sys.argv) < 2):
-    print("Need a file with a n_puzzle inside.");
-    sys.exit(1);
+	def isSolved(self):
+		def isSolved_map(data):
+			if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:
+				return True
+			return False
+		return all(self.map(isSolvedMap))
 
-f = open(sys.argv[1], "r");
-game = Game(f);
-print(game.taquin);
-for arg in sys.argv:
-    print(arg);
+	
+
+	def resolv(self):
+		print(self.isSolved())
+
+		self.solution = ['right', 'right','up','up','left','down']
+		self.solution = []
+		return self.solution
+
+	def showResult(self):
+		print('Step: ', len(self.solution))
+		print('Solution: ', ' '.join(str(e) for e in self.solution))
+
+		
+	
