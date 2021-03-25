@@ -7,6 +7,6 @@ for ((i=3;i<=8;i++));do
 	if [ "$CMP" = "$N" ]; then
 		echo "$(dirname -- "$0")/taquin_$i.txt : \033[1;32mOK\033[0m'"
 	else
-		echo "\033[0;31m$(dirname -- "$0")/taquin_$i.txt : KO : $CMP moves instead of $N moves\033[0m'"
+		echo "\033[0;31m$(dirname -- "$0")/taquin_$i.txt : KO : $CMP moves found instead of $N moves\033[0m'"
 	fi
 done
