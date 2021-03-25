@@ -45,18 +45,7 @@ class Taquin(object):
 			return False
 		return all(self.map(isSolved_map))
 
-	
-
 	def resolv(self):
-		print(self.isSolved())
-
 		self.solution = ['right', 'right','up','up','left','down']
-		self.solution = []
 		return self.solution
 
-	def showResult(self):
-		print('Step: ', len(self.solution))
-		print('Solution: ', ' '.join(str(e) for e in self.solution))
-
-		
-	

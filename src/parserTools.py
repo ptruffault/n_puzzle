@@ -4,9 +4,9 @@ from utils import *
 #check if board is or not valid
 def checkBoard(board):
 	size = len(board)
+	met = []
 	if size < 3:
 		error("minimal board size is 3")
-	met = []
 	for i in range(0, len(board)):
 		if len(board[i]) != size:
 			error("invalid line size")
@@ -20,13 +20,13 @@ def checkBoard(board):
 
 #return board from args
 def getBoard(filepath):
+	board = []
+	size = 0;
 	try:
 		file = open(filepath, 'r')
 	except OSError:
 		error("Could not open/read/find " + filepath)
-	with open(filepath, 'r') as file:
-		board = []
-		size = 0;
+	with file:
 		lines = re.sub(r'#.*', '', file.read()).split('\n')
 		for i in range(0, len(lines)):
 			line_arr = []
