@@ -1,3 +1,4 @@
+from utils import *
 
 class Taquin(object):
 	def __init__(self, board):
@@ -6,7 +7,7 @@ class Taquin(object):
 		self.solution = []
 
 	# Apply "function" to each tuile of the taquin in the right order
-	def map(self, function):
+	def map(self, function, begin=0):
 		directions = [
 			{'begin': 0, 'end': self.size -1, 'step': 1},	# right
 			{'begin': 1, 'end': self.size -1, 'step': 1},	# down
@@ -17,7 +18,8 @@ class Taquin(object):
 		ret = []
 		d = 0
 		while data['i'] <= self.size*self.size - 1:
-			ret.append(function(data))
+			if data['i'] >= begin:
+				ret.append(function(data))
 			data['i'] += 1
 			if d % 2 == 0:
 				if data['y'] == directions[d]['end']:
@@ -38,14 +40,29 @@ class Taquin(object):
 		return ret
 	
 
+	def isSolved__map(self, data):
+		if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:
+			return True
+		return False
+
 	def isSolved(self):
-		def isSolved_map(data):
-			if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:
-				return True
-			return False
 		return all(self.map(isSolved_map))
 
-	def resolv(self):
-		self.solution = ['right', 'right','up','up','left','down']
-		return self.solution
 
+	def isSolvable__map(self, data):
+		return 1 if self.toCmp > self.board[data['x']][data['y']] and self.board[data['x']][data['y']] != 0 else 0
+
+	def isSolvable_map(self, data):
+		self.toCmp = self.board[data['x']][data['y']]
+		return sum(self.map(self.isSolvable__map, data['i']))
+
+	def isSolvable(self):
+		return True if not sum(self.map(self.isSolvable_map)) % 2 else False
+
+	def resolv(self):
+		if self.isSolvable():
+			print('solvable')
+			self.solution = ['right', 'right','up','up','left','down']
+			return self.solution
+		else:
+			error('unsolvable')
