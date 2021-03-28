@@ -2,10 +2,9 @@
 import re
 from utils import *
 
-def checkBoard(board):
-	size = len(board)
+def checkBoard(board, size):
 	met = []
-	if size < 3:
+	if size < 3 or size != len(board):
 		error("invalid board size")
 	for i in range(0, len(board)):
 		if len(board[i]) != size:
@@ -37,5 +36,5 @@ def getBoard(filepath):
 					line_arr.append(int(line[j]))
 			if len(line_arr) > 0:
 				board.append(line_arr)
-		if checkBoard(board):
+		if checkBoard(board, size):
 			return (board)
