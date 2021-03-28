@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 from utils import *
 
 class Taquin(object):
@@ -40,10 +39,6 @@ class Taquin(object):
 					data['x'] += directions[d]['step']
 		return ret
 	
-
-
-
-
 	# check if the taquin is currently solved or not
 	def isSolved_map(self, data):
 		if self.board[data['x']][data['y']] == data['i'] + 1 or data['i'] == self.size*self.size-1 and self.board[data['x']][data['y']] == 0:

@@ -1,8 +1,5 @@
-#!/usr/bin/env python
 import sys
 
-#error msg function
 def error(msg):
-	print('ERROR: '+ msg)
+	print(msg)
 	sys.exit(1)
-
