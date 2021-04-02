@@ -104,9 +104,9 @@ class TaquinGame(object):
 		self.play = True
 		self.launched = True
 		self.showTaquin()
-		for move in self.moves:
-			time.sleep(0.2)
-			self.applyMove(move)
+		if self.moves:
+			for move in self.moves:
+				self.applyMove(move)
 		while self.launched:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
